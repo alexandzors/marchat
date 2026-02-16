@@ -81,7 +81,7 @@ jobs:
                       -X github.com/Cod-e-Codes/marchat/shared.ServerVersion=${{ steps.version.outputs.VERSION }} \
                       -X github.com/Cod-e-Codes/marchat/shared.BuildTime=${{ steps.metadata.outputs.BUILD_TIME }} \
                       -X github.com/Cod-e-Codes/marchat/shared.GitCommit=${{ steps.metadata.outputs.GIT_COMMIT }}" \
-            -o "build/marchat-client-${{ matrix.platform }}${{ matrix.ext }}" \
+            -o "build/marchat-client-${{ matrix.goos}}-${{ matrix.goarch }}${{ matrix.ext }}" \
             ./client
 
       - name: Build server
@@ -94,7 +94,7 @@ jobs:
                       -X github.com/Cod-e-Codes/marchat/shared.ServerVersion=${{ steps.version.outputs.VERSION }} \
                       -X github.com/Cod-e-Codes/marchat/shared.BuildTime=${{ steps.metadata.outputs.BUILD_TIME }} \
                       -X github.com/Cod-e-Codes/marchat/shared.GitCommit=${{ steps.metadata.outputs.GIT_COMMIT }}" \
-            -o "build/marchat-server-${{ matrix.platform }}${{ matrix.ext }}" \
+            -o "build/marchat-server-${{ matrix.goos}}-${{ matrix.goarch }}${{ matrix.ext }}" \
             ./cmd/server
 
       - name: Create release archive
@@ -102,12 +102,12 @@ jobs:
           cd build
           if [ "${{ matrix.goos }}" = "windows" ]; then
             zip "../marchat-${{ steps.version.outputs.VERSION }}-${{ matrix.platform }}.zip" \
-              "marchat-client-${{ matrix.platform }}${{ matrix.ext }}" \
-              "marchat-server-${{ matrix.platform }}${{ matrix.ext }}"
+              "marchat-client-${{ matrix.goos}}-${{ matrix.goarch }}${{ matrix.ext }}" \
+              "marchat-server-${{ matrix.goos}}-${{ matrix.goarch }}${{ matrix.ext }}"
           else
             tar -czf "../marchat-${{ steps.version.outputs.VERSION }}-${{ matrix.platform }}.tar.gz" \
-              "marchat-client-${{ matrix.platform }}${{ matrix.ext }}" \
-              "marchat-server-${{ matrix.platform }}${{ matrix.ext }}"
+              "marchat-client-${{ matrix.goos}}-${{ matrix.goarch }}${{ matrix.ext }}" \
+              "marchat-server-${{ matrix.goos}}-${{ matrix.goarch }}${{ matrix.ext }}"
           fi
 
       - name: Upload release artifact
