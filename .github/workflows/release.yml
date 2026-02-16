@@ -188,8 +188,8 @@ jobs:
             BUILD_TIME=${{ steps.meta.outputs.BUILD_TIME }}
             GIT_COMMIT=${{ steps.meta.outputs.GIT_COMMIT }}
           tags: |
-            codecodesxyz/marchat:${{ needs.build.outputs.VERSION }}
-            codecodesxyz/marchat:latest
+            alexandzors/marchat:${{ needs.build.outputs.VERSION }}
+            alexandzors/marchat:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
